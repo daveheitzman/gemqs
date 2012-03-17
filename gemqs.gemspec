@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Dave Heitzman"]
   s.email       = ["daveheitzman@yahoo.com"]
   s.homepage    = "http://aptifuge.com"
-  s.summary     = %q{Command line interface to search rubygems.org}
-  s.description = %q{Command line interface to search rubygems.org}
+  s.summary     = %q{Command line interface to search for gems on  rubygems.org}
+  s.description = %q{Command line interface to search for gems on rubygems.org}
 
   s.rubyforge_project = "gemqs"
 
