@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Gemqs::VERSION
   s.authors     = ["Dave Heitzman"]
   s.email       = ["daveheitzman@yahoo.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://aptifuge.com"
+  s.summary     = %q{Command line interface to search rubygems.org}
+  s.description = %q{Command line interface to search rubygems.org}
 
   s.rubyforge_project = "gemqs"
 
