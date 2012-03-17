@@ -1,0 +1,8 @@
+#! /usr/bin/env ruby 
+require File.expand_path("../../lib/gemqs.rb",__FILE__)
+
+include Gemqs
+
+scraper=Scraper.new
+scraper.get_page
+

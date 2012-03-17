@@ -1,0 +1,7 @@
+#
+# Configuration for gem quick search (gemqs)  
+#
+
+---
+urls: 
+  rubygems: http://rubygems.org
