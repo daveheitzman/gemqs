@@ -45,6 +45,8 @@ module Gemqs
     def get_page
       if conf[:query].size > 0
         puts "  searching #{conf['urls'].map{|k,v| v }.join(', ')} on the terms: "+conf[:terms].join( " " )
+#          puts conf['urls']['rubygems']+conf[:query]
+
         rpage=html_page
         ritems = rpage.css('div.gems.border>ol>li')
         ritems.each do |rli| 
