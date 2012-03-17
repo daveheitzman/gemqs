@@ -18,45 +18,48 @@ module Gemqs
   end 
 
   class Scraper
+    attr_accessor :results
     def initialize
-      puts "gem quicksearch -- using url: " + conf["urls"]["rubygems"]
+      #~ puts "  gemqs (gem quick-search) "
+      #~ puts "    by David Heitzman, 2012. http://aptifuge.com"
+      #~ puts 
       case ARGV.size
       when 0 
         puts "usage: gemqs [search terms] "
       else
+        print "gemqs "
         query=ARGV.join("+")
-   #     query = "/search?utf8=\u2713&query="+query
+        conf[:terms] = query.split "+"
         query = "/search?query="+query
         conf[:query] = query
       end 
-      
-      puts "url to be sent as a search "+conf['urls']['rubygems']+conf[:query]
+      @results = []
     end 
     def agent
       @agent=Mechanize.new
     end 
     def html_page
       @html_page ||= Nokogiri::HTML( open( conf['urls']['rubygems']+conf[:query] ) )
-      #~ @html_page = Nokogiri::HTML( open('http://www.handsonnetwork.org/actioncenters/handsonconnect') )
     end 
+
     def get_page
       if conf[:query].size > 0
-        rpage=html_page #agent.get conf['urls']['rubygems']+conf[:query]
-        #~ puts rpage.inspect 
-  #      rpage.links.each do |l| puts l.text if l.text.include? "\n" end 
-         #~ rpage.links.each do |l| puts l.inspect end 
+        puts "  searching #{conf['urls'].map{|k,v| v }.join(', ')} on the terms: "+conf[:terms].join( " " )
+        rpage=html_page
         ritems = rpage.css('div.gems.border>ol>li')
         ritems.each do |rli| 
-          #~ puts "num of chidlren "+rli.children.size.to_s
           rli.children.each_with_index do |item,index|
-   #         puts index.to_s + ": " + item.text
-            #puts item.to_s.split("\n").inspect 
           end 
-  #        gem_name_and_version=rli.children[3].css("strong").text.to_s
-          #puts txt.first + txt.last + rli[0].to_s.split[0].to_s
-          puts rli.children[1].text.to_s  + rli.children[3].text.split("\n")[1]+rli.children[3].text.split("\n")[2]
-          #~ puts "gem_name_and_version "+gem_name_and_version
-          #~ puts rli.children[3].text.split("\n").inspect
+          self.results << [
+            rli.children[1].text.split(" ").first.to_i,
+            rli.children[3].text.split("\n")[1].chomp(),
+            rli.children[3].text.split("\n")[2].chomp.chomp() 
+            ]
+        #  puts rli.children[1].text.to_s  + rli.children[3].text.split("\n")[1]+rli.children[3].text.split("\n")[2]
+        end 
+        puts self.results.inspect
+        results.sort{|a,b| b.first <=> a.first}.each do |i|
+          printf("%30.30s %12d downloads.  #{ i[2] }\n",i[1],i[0])
         end 
       end 
     end 
@@ -64,7 +67,6 @@ module Gemqs
   
   class Organizer
   end 
-  #Mechanize.new  
 
   # Your code goes here...
 end
