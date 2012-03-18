@@ -50,18 +50,18 @@ module Gemqs
         rpage=html_page
         ritems = rpage.css('div.gems.border>ol>li')
         ritems.each do |rli| 
-#puts            rli.css("a>strong").text
         
-          self.results << [
-            rli.children[1].text.split(" ").first.gsub(",","").to_i,
-            rli.children[3].text.split("\n")[1],
-  #          rli.children[3].text.split("\n")[2], 
-            rli.css("a>strong").text, 
-            rli.children[1].text.split(" ").first
-            ]
+        self.results << [
+          rli.children[1].text.split(" ").first.gsub(",","").to_i,
+          rli.children[3].text.split("\n")[1],
+  #       rli.children[3].text.split("\n")[2], 
+          rli.css("a").text.split("\n")[2].delete("\r"),   
+          rli.css("a>strong").text, 
+          rli.css("div>strong").text, 
+          ]
         end 
         results.sort{|a,b| b.first <=> a.first}.each do |i|
-          printf("%-40.40s %14.14s downloads #{ i[2] }\n",i[1],i[3])
+           printf("%-40.40s %14.14s downloads #{ i[2] }\n",i[1],i[4] )
         end 
       end 
     end 
