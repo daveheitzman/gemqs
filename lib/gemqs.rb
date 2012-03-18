@@ -50,10 +50,13 @@ module Gemqs
         rpage=html_page
         ritems = rpage.css('div.gems.border>ol>li')
         ritems.each do |rli| 
+#puts            rli.css("a>strong").text
+        
           self.results << [
             rli.children[1].text.split(" ").first.gsub(",","").to_i,
             rli.children[3].text.split("\n")[1],
-            rli.children[3].text.split("\n")[2], 
+  #          rli.children[3].text.split("\n")[2], 
+            rli.css("a>strong").text, 
             rli.children[1].text.split(" ").first
             ]
         end 
